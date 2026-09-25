@@ -16,6 +16,7 @@ Use this as a starting point to complete the WDD 330 team activity: the SleepOut
 ## Other commands
 
 - `npm run build` to build final files when you are ready to turn in.
+- `npm run preview` to view production build locally
 - `npm run lint` to run ESLint against your code to find errors.
 - `npm run format` to run Prettier to automatically format your code.
 
