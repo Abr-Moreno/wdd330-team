@@ -6,6 +6,20 @@ export default function ShoppingCart() {
   renderListWithTemplate(cartItemTemplate, outputEl, cartItems);
 }
 
+// Calculate and display the cart total.
+const total = cartItems.reduce(
+  (sum, item) => sum + Number(item.FinalPrice),
+  0
+);
+
+document.querySelector(".list-total").innerText =
+  `Total: $${total.toFixed(2)}`;
+
+// Show the checkout link and total when the cart has items.
+if (cartItems.length > 0) {
+  document.querySelector(".list-footer").classList.remove("hide");
+}
+
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
