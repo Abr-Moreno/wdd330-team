@@ -16,8 +16,12 @@ export default function ShoppingCart() {
     `Total: $${total.toFixed(2)}`;
 
   // Show the checkout link and total when the cart has items.
+  const listFooter = document.querySelector(".list-footer");
+
   if (cartItems.length > 0) {
-    document.querySelector(".list-footer").classList.remove("hide");
+    listFooter.classList.remove("hide");
+  } else {
+    listFooter.classList.add("hide");
   }
 }
 
