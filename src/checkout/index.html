@@ -22,7 +22,6 @@
 
         <fieldset>
           <legend>Shipping</legend>
-
           <div class="checkout__name">
             <label for="fname">First Name</label>
             <input id="fname" name="fname" type="text" required minlength="2" />
@@ -30,7 +29,6 @@
             <label for="lname">Last Name</label>
             <input id="lname" name="lname" type="text" required minlength="2" />
           </div>
-
           <div class="checkout__address">
             <label for="street">Street</label>
             <input id="street" name="street" type="text" required />
@@ -44,11 +42,10 @@
             <label for="zip">Zip</label>
             <input id="zip" name="zip" type="text" required pattern="[0-9]{5}" title="Enter a 5-digit ZIP code." />
           </div>
-        </fieldset>
-
+        </fieldset> 
         <fieldset>
           <legend>Payment</legend>
-
+ 
           <label for="cardNumber">Card number</label>
           <input id="cardNumber" name="cardNumber" type="text" required inputmode="numeric" minlength="13"
             maxlength="19" pattern="[0-9]+" />
