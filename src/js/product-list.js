@@ -5,6 +5,6 @@ loadHeaderFooter();
 const category = getParam("category");
 
 document.querySelector(".title").textContent =
-    category.charAt(0).toUpperCase() + category.slice(1).replace("-", " ");
+  category.charAt(0).toUpperCase() + category.slice(1).replace("-", " ");
 
-productList(".product-list", category); 
+productList(".product-list", category);

@@ -1,5 +1,5 @@
 import { findProductById } from "./externalServices.mjs";
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage, alertMessage } from "./utils.mjs";
 
 let product = {};
 
@@ -11,13 +11,17 @@ export default async function productDetails(productId) {
   // once the HTML is rendered we can add a listener to Add to Cart button
   document.getElementById("addToCart").addEventListener("click", addToCart);
 }
-
 function addToCart() {
-  const cart = getLocalStorage("so-cart") || [];
-  cart.push(product);
-  setLocalStorage("so-cart", cart);
+  let cartContents = getLocalStorage("so-cart");
+  //check to see if there was anything there
+  if (!cartContents) {
+    cartContents = [];
+  }
+  // then add the current product to the list
+  cartContents.push(product);
+  setLocalStorage("so-cart", cartContents);
+  alertMessage(`${product.NameWithoutBrand} added to cart!`);
 }
-
 function renderProductDetails() {
   document.querySelector("#productName").innerText = product.Brand.Name;
   document.querySelector("#productNameWithoutBrand").innerText =
