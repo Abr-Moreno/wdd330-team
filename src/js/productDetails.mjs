@@ -13,13 +13,25 @@ export default async function productDetails(productId) {
 }
 function addToCart() {
   let cartContents = getLocalStorage("so-cart");
-  //check to see if there was anything there
+
   if (!cartContents) {
     cartContents = [];
   }
-  // then add the current product to the list
-  cartContents.push(product);
+
+  // *Check whether this product is already in the cart.
+  const existingItem = cartContents.find((item) => item.Id === product.Id);
+
+  if (existingItem) {
+    // *Increase the existing product's quantity.
+    existingItem.Quantity = (existingItem.Quantity || 1) + 1;
+  } else {
+    // *Start the product at quantity 1.
+    product.Quantity = 1;
+    cartContents.push(product);
+  }
+
   setLocalStorage("so-cart", cartContents);
+
   alertMessage(`${product.NameWithoutBrand} added to cart!`);
 }
 function renderProductDetails() {
