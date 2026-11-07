@@ -24,7 +24,8 @@ function packageItems(items) {
       id: item.Id,
       price: item.FinalPrice,
       name: item.Name,
-      quantity: 1,
+      // *Send the actual quantity instead of always sending 1.
+      quantity: item.Quantity || 1,
     };
   });
   return simplifiedItems;
@@ -51,14 +52,30 @@ const checkoutProcess = {
     const itemNumElement = document.querySelector(
       this.outputSelector + " #num-items"
     );
-    itemNumElement.innerText = this.list.length;
-    // calculate the total of all the items in the cart
-    const amounts = this.list.map((item) => item.FinalPrice);
+
+    // *Count the total number of individual items.
+    const itemCount = this.list.reduce(
+      (sum, item) => sum + (item.Quantity || 1),
+      0
+    );
+    itemNumElement.innerText = itemCount;
+
+    // *Calculate the subtotal using each item's quantity.
+    const amounts = this.list.map(
+      (item) => Number(item.FinalPrice) * (item.Quantity || 1)
+    );
     this.itemTotal = amounts.reduce((sum, item) => sum + item, 0);
-    summaryElement.innerText = "$" + this.itemTotal;
+
+    summaryElement.innerText = "$" + this.itemTotal.toFixed(2);
   },
   calculateOrdertotal: function () {
-    this.shipping = 10 + (this.list.length - 1) * 2;
+    // *Calculate shipping using the total item count.
+    const itemCount = this.list.reduce(
+      (sum, item) => sum + (item.Quantity || 1),
+      0
+    );
+    this.shipping = 10 + (itemCount - 1) * 2;
+
     this.tax = (this.itemTotal * 0.06).toFixed(2);
     this.orderTotal = (
       parseFloat(this.itemTotal) +

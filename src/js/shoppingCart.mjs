@@ -1,14 +1,18 @@
-
-import { getLocalStorage, renderListWithTemplate } from "./utils.mjs";
+import {
+  getLocalStorage,
+  setLocalStorage,
+  renderListWithTemplate,
+} from "./utils.mjs";
 
 export default function ShoppingCart() {
   const cartItems = getLocalStorage("so-cart");
   const outputEl = document.querySelector(".product-list");
+
   renderListWithTemplate(cartItemTemplate, outputEl, cartItems);
 
-  // Calculate and display the cart total.
+  // UPDATED: Calculate the total using each item's quantity.
   const total = cartItems.reduce(
-    (sum, item) => sum + Number(item.FinalPrice),
+    (sum, item) => sum + Number(item.FinalPrice) * (item.Quantity || 1),
     0
   );
 
@@ -23,23 +27,39 @@ export default function ShoppingCart() {
   } else {
     listFooter.classList.add("hide");
   }
+
+  // *Listen for quantity changes on each cart item.
+  outputEl.querySelectorAll(".cart-quantity").forEach((input, index) => {
+    input.addEventListener("change", () => {
+      // *Make sure the quantity is at least 1.
+      const quantity = Math.max(1, Number(input.value) || 1);
+
+      // *Save the updated quantity in localStorage.
+      cartItems[index].Quantity = quantity;
+      setLocalStorage("so-cart", cartItems);
+
+      // *Re-render the cart to update the displayed total and quantity.
+      ShoppingCart();
+    });
+  });
 }
 
 function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
-    <img
-      src="${item.Image}"
-      alt="${item.Name}"
-    />
-  </a>
-  <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
-  </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-</li>`;
+  return `<li class="cart-card divider">
+    <a href="#" class="cart-card__image">
+      <img src="${item.Image}" alt="${item.Name}" />
+    </a>
+    <a href="#">
+      <h2 class="card__name">${item.Name}</h2>
+    </a>
+    <p class="cart-card__color">${item.Colors[0].ColorName}</p>
 
-  return newItem;
+    <!-- *Let the user enter the desired quantity. -->
+    <label>
+      Qty:
+      <input class="cart-quantity" type="number" min="1" value="${item.Quantity || 1}" />
+    </label>
+
+    <p class="cart-card__price">$${item.FinalPrice}</p>
+  </li>`;
 }
