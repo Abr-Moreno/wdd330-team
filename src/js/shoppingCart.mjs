@@ -5,12 +5,12 @@ import {
 } from "./utils.mjs";
 
 export default function ShoppingCart() {
-  const cartItems = getLocalStorage("so-cart");
+  const cartItems = getLocalStorage("so-cart") || [];
   const outputEl = document.querySelector(".product-list");
 
   renderListWithTemplate(cartItemTemplate, outputEl, cartItems);
 
-  // UPDATED: Calculate the total using each item's quantity.
+  // *Calculate the total using each item's quantity.
   const total = cartItems.reduce(
     (sum, item) => sum + Number(item.FinalPrice) * (item.Quantity || 1),
     0
