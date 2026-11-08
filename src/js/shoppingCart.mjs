@@ -42,10 +42,33 @@ export default function ShoppingCart() {
       ShoppingCart();
     });
   });
+
+  // *Listen for clicks on each remove button.
+  outputEl.querySelectorAll(".cart-remove").forEach((button) => {
+    button.addEventListener("click", () => {
+      // *Get the ID of the product to remove.
+      const productId = button.dataset.id;
+
+      // *Get the latest cart and remove the selected product.
+      const updatedCart = getLocalStorage("so-cart") || [];
+      const filteredCart = updatedCart.filter(
+        (item) => String(item.Id) !== productId
+      );
+
+      // *Save the updated cart and re-render it.
+      setLocalStorage("so-cart", filteredCart);
+      ShoppingCart();
+    });
+  });
 }
 
 function cartItemTemplate(item) {
   return `<li class="cart-card divider">
+
+    <!-- *Remove this product from the cart. -->
+    <button class="cart-remove" type="button" data-id="${item.Id}">
+      X
+    </button>
     <a href="#" class="cart-card__image">
       <img src="${item.Image}" alt="${item.Name}" />
     </a>
