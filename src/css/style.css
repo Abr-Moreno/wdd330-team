@@ -292,10 +292,16 @@ button {
 }
 
 /* Remove from cart feature */
+/* Position quantity input and remove button side by side. */
+.cart-quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Remove from cart feature */
+/* Style the remove button. */
 .cart-remove {
-  grid-column: 3;
-  grid-row: 1;
-  justify-self: end;
   font-size: 14px;
   padding: 2px 6px;
   cursor: pointer;

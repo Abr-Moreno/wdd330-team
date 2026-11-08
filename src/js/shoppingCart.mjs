@@ -64,11 +64,6 @@ export default function ShoppingCart() {
 
 function cartItemTemplate(item) {
   return `<li class="cart-card divider">
-
-    <!-- *Remove this product from the cart. -->
-    <button class="cart-remove" type="button" data-id="${item.Id}">
-      X
-    </button>
     <a href="#" class="cart-card__image">
       <img src="${item.Image}" alt="${item.Name}" />
     </a>
@@ -77,11 +72,14 @@ function cartItemTemplate(item) {
     </a>
     <p class="cart-card__color">${item.Colors[0].ColorName}</p>
 
-    <!-- *Let the user enter the desired quantity. -->
-    <label>
-      Qty:
-      <input class="cart-quantity" type="number" min="1" value="${item.Quantity || 1}" />
-    </label>
+    <!-- *Let the user enter the desired quantity and remove the product. -->
+    <div class="cart-quantity-controls">
+      <label>
+        Qty:
+        <input class="cart-quantity" type="number" min="1" value="${item.Quantity || 1}" />
+      </label>
+      <button class="cart-remove" type="button" data-id="${item.Id}">X</button>
+    </div>
 
     <p class="cart-card__price">$${item.FinalPrice}</p>
   </li>`;
