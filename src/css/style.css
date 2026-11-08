@@ -291,15 +291,11 @@ button {
   grid-column: 3;
 }
 
-/* *Position the remove button in the top-right corner. */
-.cart-card {
-  position: relative;
-}
-/* ** */
+/* Remove from cart feature */
 .cart-remove {
-  position: absolute;
-  top: 5px;
-  right: 5px;
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
   font-size: 14px;
   padding: 2px 6px;
   cursor: pointer;
