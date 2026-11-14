@@ -2,6 +2,8 @@ import {
   getLocalStorage,
   setLocalStorage,
   renderListWithTemplate,
+  updateCartCount,
+  animateCart,
 } from "./utils.mjs";
 
 export default function ShoppingCart() {
@@ -38,6 +40,8 @@ export default function ShoppingCart() {
       cartItems[index].Quantity = quantity;
       setLocalStorage("so-cart", cartItems);
 
+      updateCartCount();
+      animateCart();
       // *Re-render the cart to update the displayed total and quantity.
       ShoppingCart();
     });
@@ -57,6 +61,8 @@ export default function ShoppingCart() {
 
       // *Save the updated cart and re-render it.
       setLocalStorage("so-cart", filteredCart);
+      updateCartCount();
+      animateCart();
       ShoppingCart();
     });
   });

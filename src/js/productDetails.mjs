@@ -1,5 +1,5 @@
 import { findProductById } from "./externalServices.mjs";
-import { setLocalStorage, getLocalStorage, alertMessage } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage, alertMessage, updateCartCount, animateCart } from "./utils.mjs";
 
 let product = {};
 
@@ -31,6 +31,10 @@ function addToCart() {
   }
 
   setLocalStorage("so-cart", cartContents);
+
+  updateCartCount();
+
+  animateCart();
 
   alertMessage(`${product.NameWithoutBrand} added to cart!`);
 }

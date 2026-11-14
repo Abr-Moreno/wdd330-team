@@ -112,9 +112,46 @@ button {
 
 .cart svg {
   width: 25px;
+  transform-origin: center bottom;
 }
+
+/* Backpack bounce animation */
+.cart svg.bounce {
+  animation: cartBounce 0.5s ease;
+}
+
+@keyframes cartBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-8px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  70% {
+    transform: translateY(-4px);
+  }
+}
+
 .cart:hover svg {
   fill: gray;
+}
+
+/* Add-on: superscript number for cart count */
+.cart a {
+  position: relative;
+}
+#cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  font-size: 12px;
+  background-color: var(--primary-color);
+  color: var(--dark-grey);
+  border-radius: 50%;
+  padding: 2px 5px;
 }
 
 /* End cart icon styles */
