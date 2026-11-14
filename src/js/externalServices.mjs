@@ -31,3 +31,28 @@ export async function checkout(payload) {
   };
   return await fetch(baseURL + "checkout/", options).then(convertToJson);
 }
+
+// Send login credentials to the server and retrieve an access token.
+export async function loginRequest(user) {
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  };
+  const response = await fetch(baseURL + "login", options).then(convertToJson);
+  return response.accessToken;
+}
+
+// Retrieve the current user's orders. Requires a valid token.
+export async function getOrders(token) {
+  const options = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await fetch(baseURL + "orders", options).then(convertToJson);
+  return response;
+}

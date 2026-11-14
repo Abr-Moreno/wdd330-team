@@ -3,6 +3,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   root: "src/",
+  envDir: "../",
 
   build: {
     outDir: "../dist",
@@ -14,6 +15,8 @@ export default defineConfig({
         success: resolve(__dirname, "src/checkout/success.html"),
         product: resolve(__dirname, "src/product_pages/index.html"),
         product_list: resolve(__dirname, "src/product-list/index.html"),
+        orders: resolve(__dirname, "src/orders/index.html"),
+        login: resolve(__dirname, "src/login/index.html"),
       },
     },
   },
